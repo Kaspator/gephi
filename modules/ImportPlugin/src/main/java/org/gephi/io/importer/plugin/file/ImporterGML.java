@@ -106,17 +106,21 @@ public class ImporterGML implements FileImporter, LongTask {
         ArrayList<Object> list = new ArrayList<>();
         char t;
         boolean readString = false;
+        boolean escape = false;
         String stringBuffer = new String();
 
         while (reader.ready()) {
             t = (char) reader.read();
             if (readString) {
-                if (t == '"') {
+                if (t == '\\' && !escape) {
+                    escape = true;
+                } else if (t == '"' && !escape) {
                     list.add(stringBuffer);
                     stringBuffer = new String();
                     readString = false;
                 } else {
                     stringBuffer += t;
+                    escape = false;
                 }
             } else {
                 switch (t) {

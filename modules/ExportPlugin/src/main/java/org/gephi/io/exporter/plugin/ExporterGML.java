@@ -197,7 +197,7 @@ public class ExporterGML implements GraphExporter, CharacterExporter, LongTask {
         printTag("source " + edge.getSource().getId());
         printTag("target " + edge.getTarget().getId());
         if (exportLabel && edge.getLabel() != null) {
-            printTag("label \"" + edge.getLabel() + "\"");
+            printTag("label \"" + edge.getLabel().replace("\"", "\\\"") + "\"");
         }
         if (exportEdgeSize) {
             if (exportDynamicWeight) {
@@ -237,7 +237,7 @@ public class ExporterGML implements GraphExporter, CharacterExporter, LongTask {
         printOpen("node");
         printTag("id " + node.getId());
         if (exportLabel && node.getLabel() != null) {
-            printTag("label \"" + node.getLabel() + "\"");
+            printTag("label \"" + node.getLabel().replace("\"", "\\\"") + "\"");
         }
         if (exportCoordinates || exportNodeSize || exportColor) {
             printOpen("graphics");
